@@ -6,8 +6,6 @@ aTuple = (1,2,3,4,5,6,7,8,9)
 player1 = []
 player2 = []
 
-
-
 '''board = 7,8,9,
            4,5,6,
            1,2,3'''
@@ -29,13 +27,6 @@ def gameGrid():
     print("")
     print(str(board1[1]) , " | " , str(board1[2]) , " | " , str(board1[3]))
 
-'''def emotes(y):
-    if x == 1:
-        print("(* ^ ω ^)")
-    elif x == 2:
-        print(":D")
-    elif x == 3:
-        print(";D")'''
 
 def winO(y):
     global aTuple, player2
@@ -85,6 +76,15 @@ def winX(y):
 def greetingStart():
     print("Hello Players! Welcome to TikTokToe!")
 
+def endScreen():
+    try:
+        ending = input("Thanks for Playing!\n See you next Time!")
+    except ValueError:
+        raise ValueError
+        exit() 
+    else:
+        exit() #figure out a "new game" mechanic
+
 turn1 = 1
 def gameRun():
     global turn1, board1
@@ -93,6 +93,7 @@ def gameRun():
 
         if turn1 == 1:
             greetingStart()
+            gameGrid()
         if turn1 % 2 != 0:
             print("Player 1! Your Turn!\n")
         elif turn1 % 2 == 0:
@@ -102,14 +103,12 @@ def gameRun():
         except ValueError:
             continue
         else:
-            
             if  y > 9 or y < 1:
                 continue
             if y == "exit":
                 break
             playerTurn(y,turn1)
             gameGrid()
-        
             turn1 += 1
             winO(y)
             if winO(y) == "0":
