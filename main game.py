@@ -1,8 +1,8 @@
-#title card not found
-#god help me piece this together please
+'''TIKTOKTOE'''
+#why does GITHUB SUCK SO MUCH SERIOUSLY GITHUB WHY
 
 board1 = [" "," "," "," "," "," "," "," "," "," "]
-aTuple = (1,2,3,4,5,6,7,8,9)
+
 player1 = []
 player2 = []
 
@@ -10,7 +10,7 @@ player2 = []
            4,5,6,
            1,2,3'''
 
-def playerTurn(y,x):
+def playerTurn(y,x): #takes note of the player's turn
     
     if x % 2 !=0:
         player1.append(y)
@@ -20,107 +20,147 @@ def playerTurn(y,x):
         player2.append(y)
         board1[y] = "O"
 
-def gameGrid():
-    print(str(board1[7]) , " | " , str(board1[8]), " | " , str(board1[9]))
-    print("")
-    print(str(board1[4]) , " | " , str(board1[5]) , " | " , str(board1[6]))
-    print("")
-    print(str(board1[1]) , " | " , str(board1[2]) , " | " , str(board1[3]))
+def gameGrid(): #visual representation of the game 
+    print("\t" + str(board1[7]) , " | " , str(board1[8]), " | " , str(board1[9]))
+    print("\t--------------")
+    print("\t" + str(board1[4]) , " | " , str(board1[5]) , " | " , str(board1[6]))
+    print("\t--------------")
+    print("\t" + str(board1[1]) , " | " , str(board1[2]) , " | " , str(board1[3]))
 
+def showGrid(): # grid to direct the player
+    print("\t7" , " | " , "8" , " | " , "9")
+    print("\t--------------")
+    print("\t4" , " | " , "5" , " | " , "6")
+    print("\t--------------")
+    print("\t1" , " | " , "2" , " | " , "3")
 
-def winO(y):
-    global aTuple, player2
-    '''Winner set for PLayer O'''
-    if set(aTuple).intersection(player2) == {1,2,3}:
-       return "0"
-    elif set(aTuple).intersection(player2) == {4,5,6}:
-        return "0"   
-    elif set(aTuple).intersection(player2) == {7,8,9}:
-        return "0"
-    elif set(aTuple).intersection(player2) == {1,4,7}:
-        return "0"
-    elif set(aTuple).intersection(player2) == {2,5,8}:
-        return "0"
-    elif set(aTuple).intersection(player2) == {3,6,9}:
-        return "0"
-    elif set(aTuple).intersection(player2) == {1,5,9}:
-        return "0"
-    elif set(aTuple).intersection(player2) == {3,5,7}:
-        return "0"
-    else:
-        pass
-       
-def winX(y):
-    global aTuple, player1
-    '''Winner set for PLayer X'''
-    if set(aTuple).intersection(player1) == {1,2,3}:
-       return "1"
-    elif set(aTuple).intersection(player1) == {4,5,6}:
-        return "1"
-    elif set(aTuple).intersection(player1) == {7,8,9}:
-        return "1"
-    elif set(aTuple).intersection(player1) == {1,4,7}:
-        return "1"
-    elif set(aTuple).intersection(player1) == {2,5,8}:
-        return "1"
-    elif set(aTuple).intersection(player1) == {3,6,9}:
-        return "1"
-    elif set(aTuple).intersection(player1) == {1,5,9}:
-        return "1"
-    elif set(aTuple).intersection(player1) == {3,5,7}:
-        return "1"
-    else:
-        pass
-       
-
+def winGame(player): # win detection
+    
+    for x in player:
+        if x == 1:  #all combinations that start with 1
+            for x in player:
+                if x == 2:
+                    for x in player:
+                        if x == 3:
+                            return "1"
+                if x == 4:
+                    for x in player:
+                        if x == 7:
+                            return "1"
+                if x == 5:
+                    for x in player:
+                        if x == 9:
+                            return "1"
+        if x == 2: #all combinations that start with 2
+             for x in player:
+                if x == 5:
+                    for x in player:
+                        if x == 8:
+                            return "1"
+        if x == 3: #all combinations that start with 3
+            for x in player:
+                if x == 6:
+                    for x in player:
+                        if x == 9:
+                            return "1"
+                if x == 5:
+                    for x in player:
+                        if x == 7:
+                            return "1"
+        if x == 4: # all combinations that start with 4:
+            for x in player:
+                if x == 5:
+                    for x in player:
+                        if x == 6:
+                            return "1"
+        if x == 7:
+            for x in player:
+                if x == 8:
+                    for x in player:
+                        if x == 9:
+                            return "1"
+        
+    
 def greetingStart():
-    print("Hello Players! Welcome to TikTokToe!")
-
-def endScreen():
-    try:
-        ending = input("Thanks for Playing!\n See you next Time!")
-    except ValueError:
-        raise ValueError
-        exit() 
+    print("Hello Players! Welcome to TikTokToe!\nEnter a number from 1 to 9.\nEnter 0 to exit early.")
+    
+def endScreen(): #this is still shit fix it pls
+    ending = input("Thanks for Playing!\n  Play Again? (Y/N): ").upper()
+    if ending == "Y":
+        resetGame(1)
+        gameRun()
+    elif ending == "N":
+        print("See you next Time!")
+        exit()
     else:
-        exit() #figure out a "new game" mechanic
+        print("Error")
+        exit()
+
+def resetGame(a): #fix this asap
+    global name1, name2, player2, player1, board1, turn1
+    board1 = [" "," "," "," "," "," "," "," "," "," "]
+    player1 = []
+    player2 = []
+    name1 = ""
+    name2 = ""
+    turn1 = a
 
 turn1 = 1
-def gameRun():
-    global turn1, board1
-
-    while turn1 <= 9:
+def gameRun(): #main game function
+    global turn1, board1, player1, player2
+    
+    while turn1 <= 10:
 
         if turn1 == 1:
             greetingStart()
-            gameGrid()
+            showGrid()
+            while turn1 == 1:
+                name1 = input("Enter Your Name, Player 1!\n ")
+                if name1 == " " or len(name1) > 15:
+                    print("Enter your name within 15 characters.\n")
+                    continue
+                else:
+                    name2 = input("Enter Your Name, Player 2!\n ")
+                    if name2 == " " or len(name2) > 15:
+                        print("Enter your name within 15 characters.\n")
+                        continue
+                    else:
+                        break
         if turn1 % 2 != 0:
-            print("Player 1! Your Turn!\n")
+            print(name1 +  "! (X) Your Turn!\n")
         elif turn1 % 2 == 0:
-            print("Player 2! Your Turn!\n")
+            print(name2 +"! (O) Your Turn!\n")
         try:
             y = int(input("Enter a Number: "))
         except ValueError:
             continue
         else:
-            if  y > 9 or y < 1:
+            if  y > 9 or y < -1:
                 continue
-            if y == "exit":
-                break
+            elif board1[y] != " ":
+                print("\nPick another number")
+                continue
+            elif board1[y] != " ":
+                print("\nPick another number")
+                continue
+            elif y == 0:
+                endScreen()
             playerTurn(y,turn1)
+            player1.sort()
+            player2.sort()
             gameGrid()
             turn1 += 1
-            winO(y)
-            if winO(y) == "0":
-                print("Player2 Wins")
-                break
-            winX(y)
-            if winX(y) == "1":
-                print("Player1 Wins")
-                break
-            if turn1 == 9:
+            winGame(player2)
+            if winGame(player2) == "1":
+                print("\n")
+                print(name2 +" Wins!")
+                winGame(player1)
+            elif winGame(player1) == "1":
+                print("\n")
+                print(name1 +" Wins!")
+            elif turn1 > 9:
                 print("DRAW")
-    
-    
+            elif turn1 > 9 or winGame(player1) == "1" or winGame(player2) == "1":
+                endScreen()
             
 gameRun()
